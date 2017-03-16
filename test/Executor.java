@@ -4,8 +4,8 @@ import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.write.Boolean;
-import jxl.write.*;
 import jxl.write.Number;
+import jxl.write.*;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -81,17 +81,17 @@ public class Executor {
 //            WritableFont wf = new WritableFont(WritableFont.TIMES,18,WritableFont.BOLD,true);
 //            WritableCellFormat wcf = new WritableCellFormat(wf);
 //            Label labelcf = new Label(1,0,"this is a label test",wcf);
-//            ws.addCell(labelcf);
+//            sheet.addCell(labelcf);
 //
 //            //添加带有字体颜色的Formatting对象
 //            WritableFont wfc = new WritableFont(WritableFont.ARIAL,10,WritableFont.NO_BOLD,false,
 //                    UnderlineStyle.NO_UNDERLINE,jxl.format.Colour.DARK_YELLOW);
 //            WritableCellFormat wcfFC = new WritableCellFormat(wfc);
 //            Label labelCF = new Label(1,0,"Ok",wcfFC);
-//            ws.addCell(labelCF);
+//            sheet.addCell(labelCF);
 //
                 //2.添加Number对象
-                if (result.get(i) instanceof Number) {
+                if (result.get(i) instanceof java.lang.Number) {
                     Number labelN = new Number(resultColumn, i + 1, (double) result.get(i));
                     sheet.addCell(labelN);
                 }
@@ -99,7 +99,7 @@ public class Executor {
 //            NumberFormat nf = new NumberFormat("#.##");
 //            WritableCellFormat wcfN = new WritableCellFormat(nf);
 //            Number labelNF = new jxl.write.Number(1,1,3.1415926,wcfN);
-//            ws.addCell(labelNF);
+//            sheet.addCell(labelNF);
 
                 //3.添加Boolean对象
                 if (result.get(i) instanceof java.lang.Boolean) {
@@ -108,7 +108,7 @@ public class Executor {
                 }
 
                 //4.添加DateTime对象
-                if(result.get(i) instanceof Date) {
+                if (result.get(i) instanceof Date) {
                     DateTime labelDT = new DateTime(resultColumn, i + 1, (Date) (result.get(i)));
                     sheet.addCell(labelDT);
                 }
@@ -116,12 +116,12 @@ public class Executor {
 //            DateFormat df = new DateFormat("dd MM yyyy hh:mm:ss");
 //            WritableCellFormat wcfDF = new WritableCellFormat(df);
 //            DateTime labelDTF = new DateTime(1,3,new java.util.Date(),wcfDF);
-//            ws.addCell(labelDTF);
+//            sheet.addCell(labelDTF);
 //
 //            //6.添加图片对象,jxl只支持png格式图片
 //            File image = new File("f:\\1.png");
 //            WritableImage wimage = new WritableImage(0,4,6,17,image);
-//            ws.addImage(wimage);
+//            sheet.addImage(wimage);
 
                 //7.判断是否正确
                 Cell expected = sheet.getCell(resultColumn + 1, i + 1);
@@ -139,32 +139,4 @@ public class Executor {
             e.printStackTrace();
         }
     }
-
-//    public void reader(String fileName, Object object, Method method, int argNum) {
-//        File file = new File(fileName);
-//        BufferedReader reader = null;
-//        try {
-//            reader = new BufferedReader(new FileReader(file));
-//            String tempString = null;
-//            int line = 1;
-//            while ((tempString = reader.readLine()) != null) {
-//                Object[] args = new Object[argNum];
-//                for(int i = 0; i < argNum; i++) {
-//
-//                }
-//                method.invoke(object, method, args);
-//                line++;
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            if(reader != null) {
-//                try {
-//                    reader.close();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//    }
 }

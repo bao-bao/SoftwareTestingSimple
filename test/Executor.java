@@ -40,9 +40,9 @@ public class Executor {
             //获取指定单元格的对象引用
             for (int row = 1; row <= testNum; row++) {
                 String[] args = new String[argNum];
-                for (int j = 1; j <= argNum; j++) {
-                    Cell cell = readsheet.getCell(j, row);
-                    args[j - 1] = cell.getContents();
+                for (int column = 1; column <= argNum; column++) {
+                    Cell cell = readsheet.getCell(column, row);
+                    args[column - 1] = cell.getContents();
                     System.out.print(cell.getContents() + " ");
                 }
                 testResult.add(method.invoke(object, (Object) args));

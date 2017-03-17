@@ -38,10 +38,10 @@ public class Executor {
             //获取第一张Sheet表
             Sheet readsheet = workbook.getSheet(Sheet);
             //获取指定单元格的对象引用
-            for (int i = 1; i <= testNum; i++) {
+            for (int row = 1; row <= testNum; row++) {
                 String[] args = new String[argNum];
                 for (int j = 1; j <= argNum; j++) {
-                    Cell cell = readsheet.getCell(j, i);
+                    Cell cell = readsheet.getCell(j, row);
                     args[j - 1] = cell.getContents();
                     System.out.print(cell.getContents() + " ");
                 }
@@ -70,11 +70,11 @@ public class Executor {
             WritableSheet sheet = workbook.getSheet(Sheet);
             double rightNum = 0.0;
 
-            for (int i = 0; i < result.size(); i++) {
+            for (int row = 0; row < result.size(); row++) {
             /* ************往工作表中添加数据**************** */
                 //1.添加Label对象
-                if (result.get(i) instanceof String) {
-                    Label label = new Label(resultColumn, i + 1, (String) result.get(i));
+                if (result.get(row) instanceof String) {
+                    Label label = new Label(resultColumn, row + 1, (String) result.get(row));
                     sheet.addCell(label);
                 }
 //            //添加带有字型Formatting对象
@@ -91,8 +91,8 @@ public class Executor {
 //            sheet.addCell(labelCF);
 //
                 //2.添加Number对象
-                if (result.get(i) instanceof java.lang.Number) {
-                    Number labelN = new Number(resultColumn, i + 1, (double) result.get(i));
+                if (result.get(row) instanceof java.lang.Number) {
+                    Number labelN = new Number(resultColumn, row + 1, (double) result.get(row));
                     sheet.addCell(labelN);
                 }
 //            //添加带有formatting的Number对象
@@ -102,14 +102,14 @@ public class Executor {
 //            sheet.addCell(labelNF);
 
                 //3.添加Boolean对象
-                if (result.get(i) instanceof java.lang.Boolean) {
-                    Boolean labelB = new Boolean(resultColumn, i + 1, (boolean) result.get(i));
+                if (result.get(row) instanceof java.lang.Boolean) {
+                    Boolean labelB = new Boolean(resultColumn, row + 1, (boolean) result.get(row));
                     sheet.addCell(labelB);
                 }
 
                 //4.添加DateTime对象
-                if (result.get(i) instanceof Date) {
-                    DateTime labelDT = new DateTime(resultColumn, i + 1, (Date) (result.get(i)));
+                if (result.get(row) instanceof Date) {
+                    DateTime labelDT = new DateTime(resultColumn, row + 1, (Date) (result.get(row)));
                     sheet.addCell(labelDT);
                 }
 //            //5.添加带有formatting的DateFormat对象
@@ -124,8 +124,8 @@ public class Executor {
 //            sheet.addImage(wimage);
 
                 //7.判断是否正确
-                Cell expected = sheet.getCell(resultColumn + 1, i + 1);
-                if (Objects.equals(expected.getContents(), result.get(i).toString())) {
+                Cell expected = sheet.getCell(resultColumn + 1, row + 1);
+                if (Objects.equals(expected.getContents(), result.get(row).toString())) {
                     rightNum++;
                 }
             }

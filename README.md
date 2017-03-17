@@ -9,4 +9,4 @@ For how to code test class and what's the format of input data, simple is fine.
 format: only **Text/Number/Boolean/Date** can read in
 
 library needed:
-* jxl.jar [http://www.java2s.com/Code/Jar/j/Downloadjxljar.htm]
++ [jxl.jar](http://www.java2s.com/Code/Jar/j/Downloadjxljar.htm)

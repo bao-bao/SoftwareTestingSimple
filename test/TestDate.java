@@ -14,7 +14,7 @@ public class TestDate implements Test {
         }
     }
 
-    public String invoke(Object args) {
+    public String invoke(Object args) throws Exception {
         String[] argdata = (String[]) args;
         String arg1 = argdata[0];
         return NextDate.getNextDate(arg1);

@@ -45,7 +45,12 @@ public class Executor {
                     args[column - 1] = cell.getContents();
                     System.out.print(cell.getContents() + " ");
                 }
-                testResult.add(method.invoke(object, (Object) args));
+                try {
+                    testResult.add(method.invoke(object, (Object) args));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    testResult.add("ERROR");
+                }
                 System.out.println();
             }
         } catch (Exception e) {

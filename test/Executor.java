@@ -17,13 +17,13 @@ import java.util.Objects;
 
 public class Executor {
     private String dataFile = null;
-    private String Sheet = null;
+    private String sheet = null;
     private String targetFile = null;
 
-    Executor(String dataFile, String targetFile, String Sheet) {
+    Executor(String dataFile, String targetFile, String sheet) {
         this.dataFile = dataFile;
         this.targetFile = targetFile;
-        this.Sheet = Sheet;
+        this.sheet = sheet;
     }
 
     ArrayList<Object> execute(Object object, Method method, int argNum, int testNum) {
@@ -36,7 +36,7 @@ public class Executor {
             workbook = Workbook.getWorkbook(instream);
             //Sheet的下标是从0开始
             //获取第一张Sheet表
-            Sheet readsheet = workbook.getSheet(Sheet);
+            Sheet readsheet = workbook.getSheet(sheet);
             //获取指定单元格的对象引用
             for (int row = 1; row <= testNum; row++) {
                 String[] args = new String[argNum];
@@ -72,7 +72,7 @@ public class Executor {
             //创建Excel工作表 指定名称和位置
             data = Workbook.getWorkbook(new FileInputStream(dataFile));
             workbook = Workbook.createWorkbook(new File(targetFile), data);
-            WritableSheet sheet = workbook.getSheet(Sheet);
+            WritableSheet wSheet = workbook.getSheet(sheet);
             double rightNum = 0.0;
 
             for (int row = 0; row < result.size(); row++) {
@@ -80,7 +80,7 @@ public class Executor {
                 //1.添加Label对象
                 if (result.get(row) instanceof String) {
                     Label label = new Label(resultColumn, row + 1, (String) result.get(row));
-                    sheet.addCell(label);
+                    wSheet.addCell(label);
                 }
 //            //添加带有字型Formatting对象
 //            WritableFont wf = new WritableFont(WritableFont.TIMES,18,WritableFont.BOLD,true);
@@ -98,7 +98,7 @@ public class Executor {
                 //2.添加Number对象
                 if (result.get(row) instanceof java.lang.Number) {
                     Number labelN = new Number(resultColumn, row + 1, (double) result.get(row));
-                    sheet.addCell(labelN);
+                    wSheet.addCell(labelN);
                 }
 //            //添加带有formatting的Number对象
 //            NumberFormat nf = new NumberFormat("#.##");
@@ -109,13 +109,13 @@ public class Executor {
                 //3.添加Boolean对象
                 if (result.get(row) instanceof java.lang.Boolean) {
                     Boolean labelB = new Boolean(resultColumn, row + 1, (boolean) result.get(row));
-                    sheet.addCell(labelB);
+                    wSheet.addCell(labelB);
                 }
 
                 //4.添加DateTime对象
                 if (result.get(row) instanceof Date) {
                     DateTime labelDT = new DateTime(resultColumn, row + 1, (Date) (result.get(row)));
-                    sheet.addCell(labelDT);
+                    wSheet.addCell(labelDT);
                 }
 //            //5.添加带有formatting的DateFormat对象
 //            DateFormat df = new DateFormat("dd MM yyyy hh:mm:ss");
@@ -129,14 +129,14 @@ public class Executor {
 //            sheet.addImage(wimage);
 
                 //7.判断是否正确
-                Cell expected = sheet.getCell(resultColumn + 1, row + 1);
+                Cell expected = wSheet.getCell(resultColumn + 1, row + 1);
                 if (Objects.equals(expected.getContents(), result.get(row).toString())) {
                     rightNum++;
                 }
             }
             //8.添加正确率
             Number labelPercent = new Number(resultColumn + 2, 1, (rightNum / result.size()) * 100);
-            sheet.addCell(labelPercent);
+            wSheet.addCell(labelPercent);
             //9.写入工作表
             workbook.write();
             workbook.close();

@@ -7,7 +7,7 @@ public class TestDate implements Test {
         Executor executor = new Executor("testResource\\Date.xls", "testResource\\DateTest.xls", "Date");
         TestDate testDate = new TestDate();
         try {
-            ArrayList<Object> result = executor.execute(testDate, TestDate.class.getMethod("invoke", Object.class), 1, 8);
+            ArrayList<Object> result = executor.execute(testDate, TestDate.class.getMethod("invoke", Object.class), 1, 42);
             executor.write(result, 2);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();

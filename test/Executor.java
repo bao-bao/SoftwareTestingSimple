@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
@@ -132,12 +133,21 @@ public class Executor {
                 Cell expected = wSheet.getCell(resultColumn + 1, row + 1);
                 if (Objects.equals(expected.getContents(), result.get(row).toString())) {
                     rightNum++;
+                    Boolean compare = new Boolean(resultColumn + 2, row + 1, true);
+                    wSheet.addCell(compare);
+                } else {
+                    Boolean compare = new Boolean(resultColumn + 2, row + 1, false);
+                    wSheet.addCell(compare);
                 }
             }
             //8.添加正确率
-            Number labelPercent = new Number(resultColumn + 2, 1, (rightNum / result.size()) * 100);
+            Number labelPercent = new Number(resultColumn + 3, 1, (rightNum / result.size()) * 100);
             wSheet.addCell(labelPercent);
-            //9.写入工作表
+            //9.添加时间
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Label label = new Label(resultColumn + 4, 1, sdf.format(new Date()));
+            wSheet.addCell(label);
+            //10.写入工作表
             workbook.write();
             workbook.close();
         } catch (Exception e) {

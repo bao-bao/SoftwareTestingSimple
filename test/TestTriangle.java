@@ -14,7 +14,7 @@ public class TestTriangle implements Test {
         }
     }
 
-    public Boolean invoke(Object args) throws NumberFormatException {
+    public String invoke(Object args) throws NumberFormatException {
         String[] argdata = (String[]) args;
         double arg1 = Double.valueOf(argdata[0]);
         double arg2 = Double.valueOf(argdata[1]);

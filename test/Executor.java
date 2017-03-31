@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
-public class Executor {
+class Executor {
     private String dataFile = null;
     private String sheet = null;
     private String targetFile = null;

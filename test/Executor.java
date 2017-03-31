@@ -50,7 +50,7 @@ public class Executor {
                     testResult.add(method.invoke(object, (Object) args));
                 } catch (Exception e) {
                     e.printStackTrace();
-                    testResult.add("ERROR");
+                    testResult.add("Error: Wrong arguments format");
                 }
                 System.out.println();
             }
